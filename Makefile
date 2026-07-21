@@ -1,11 +1,12 @@
 ASM      := nasm
-ASMFLAGS := -f bin
 QEMU     := qemu-system-i386
 
 SRC_DIR  := src
 BIN_DIR  := bin
 BOOT_DIR := $(SRC_DIR)/boot
 KERNEL_DIR := $(SRC_DIR)/kernel
+
+ASMFLAGS := -f bin -i $(KERNEL_DIR)/
 
 BOOT_SRC := $(BOOT_DIR)/boot.asm
 KERNEL_SRC := $(KERNEL_DIR)/main.asm
