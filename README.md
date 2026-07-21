@@ -23,9 +23,15 @@ The project contains a custom bootloader and a small kernel that performs arithm
 - Integer subtraction
 - Integer multiplication
 - Integer division
+- Signed 16-bit integer support
+- Colored VGA text output
+- Input validation
+- Backspace support
+- Overflow detection
 - Division-by-zero handling
 - Invalid operation handling
 - Custom bootloader
+- Modular kernel structure
 - BIOS keyboard input
 - BIOS text output
 - 16-bit Real Mode
@@ -66,17 +72,9 @@ qemu-system-i386 -drive format=raw,file=bin/disk.img
 
 ## Example
 
-```text
-=== BIOS Calculator ===
-
-Enter first number: 10
-Enter second number: 20
-
-1.Add 2.Sub 3.Mul 4.Div
-Enter operation: 1
-
-Result: 30
-```
+<p align="center">
+  <img src="docs/example.png" width="800">
+</p>
 
 ## How it works
 
@@ -97,6 +95,12 @@ The kernel implements:
 - arithmetic operations
 - result printing
 
+## Limitations
+
+- Supports only signed 16-bit integers (-32768..32767)
+- BIOS systems only
+- Floating-point arithmetic is not supported
+
 ## Project Structure
 
 ```text
@@ -105,6 +109,10 @@ The kernel implements:
 │   ├── boot/
 │   │   └── boot.asm
 │   └── kernel/
+│       ├── color.asm
+│       ├── data.asm
+│       ├── io.asm
+│       ├── math.asm
 │       └── main.asm
 ├── bin/
 │   ├── boot.bin
@@ -117,6 +125,19 @@ The kernel implements:
 ├── README.md
 └── README_RU.md
 ```
+
+## Development
+
+The kernel is loaded by the custom bootloader at address `0x7E00`.
+
+The project is split into the following modules:
+
+- `boot.asm` — bootloader
+- `main.asm` — kernel entry point
+- `io.asm` — keyboard input and text output
+- `math.asm` — arithmetic and number conversion
+- `color.asm` — VGA color management
+- `data.asm` — strings, buffers and global variables
 
 ## About
 
