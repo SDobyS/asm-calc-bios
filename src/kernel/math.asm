@@ -10,13 +10,28 @@ str_to_int:
     mov bl, [si]
     test bl, bl
     jz .done
+    cmp bl, '0'
+    jb .error
+    cmp bl, '9'
+    ja .error
     sub bl, '0'
     mov dx, ax
     shl ax, 1
     shl dx, 3
     add ax, dx
+    jc .error
     xor bh, bh
     add ax, bx
+    jc .error
+    cmp cx, 0
+    je .positive
+    cmp ax, 32768
+    ja .error
+    jmp .next
+.positive:
+    cmp ax, 32767
+    ja .error
+.next:
     inc si
     jmp .loop
 .done:
@@ -24,6 +39,9 @@ str_to_int:
     jz .ret
     neg ax
 .ret:
+    ret
+.error:
+    xor ax, ax
     ret
 
 int_to_str:

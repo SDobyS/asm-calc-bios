@@ -3,14 +3,14 @@ org 0x7E00
 start:
     call cls
 
-    mov bl, 0x0A  
+    mov bl, COLOR_LIGHT_GREEN  
     call set_color
     mov si, title_msg
     call print_str
     call reset_color
     call newline
     
-    mov bl, 0x0B  
+    mov bl, COLOR_LIGHT_CYAN  
     call set_color
     mov si, prompt1_msg
     call print_str
@@ -22,7 +22,7 @@ start:
     mov [num1], ax
     call newline
     
-    mov bl, 0x0B
+    mov bl, COLOR_LIGHT_CYAN
     call set_color
     mov si, prompt2_msg
     call print_str
@@ -34,7 +34,7 @@ start:
     mov [num2], ax
     call newline
     
-    mov bl, 0x0B
+    mov bl, COLOR_LIGHT_CYAN
     call set_color
     mov si, prompt3_msg
     call print_str
@@ -60,7 +60,7 @@ start:
     je case_div
     
     call reset_color
-    mov bl, 0x0C 
+    mov bl, COLOR_LIGHT_RED 
     call set_color
     mov si, err_op_msg
     call print_str
@@ -92,7 +92,7 @@ case_div:
 
 div_zero:
     call reset_color
-    mov bl, 0x0C 
+    mov bl, COLOR_LIGHT_RED 
     call set_color
     mov si, err_div_msg
     call print_str
@@ -101,7 +101,7 @@ div_zero:
 
 print_result:
     push ax
-    mov bl, 0x0A
+    mov bl, COLOR_LIGHT_GREEN
     call set_color
     mov si, res_msg
     call print_str
