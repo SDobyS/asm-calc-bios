@@ -1,28 +1,41 @@
-
 cls:
     push ax
-    mov ah, 0x00 
+    mov ah, 0x00
     mov al, 0x03
     int 0x10
     pop ax
     ret
 
-newline:       
-    push ax   
-    mov ah, 0x0e 
-    mov al, 0x0a 
-    int 0x10    
-    mov al, 0x0d 
+newline:
+    push ax
+    mov ah, 0x0e
+    mov al, 0x0a
     int 0x10
-    pop ax       
-    ret   
+    mov al, 0x0d
+    int 0x10
+    pop ax
+    ret
 
-print_char: 
-    push ax 
-    mov ah, 0Eh 
-    mov al, bl 
-    int 10h 
-    pop ax 
+print_char_colored:
+    push ax
+    push bx
+    push cx
+    mov ah, 09h
+    mov al, bl
+    mov bh, 0
+    mov bl, [current_color]
+    mov cx, 1
+    int 10h
+    mov ah, 03h
+    mov bh, 0
+    int 10h
+    inc dl
+    mov ah, 02h
+    mov bh, 0
+    int 10h
+    pop cx
+    pop bx
+    pop ax
     ret
 
 print_str:
@@ -30,8 +43,8 @@ print_str:
     lodsb
     or al, al
     jz .done
-    mov ah, 0x0E
-    int 0x10
+    mov bl, al
+    call print_char_colored
     jmp .loop
 .done:
     ret
