@@ -84,8 +84,8 @@ No operating system is required.
 
 The project uses BIOS interrupts:
 
-- `INT 10h` — video services for text output
-- `INT 16h` — keyboard input
+- `INT 10h (0x10)` — video services for text output
+- `INT 16h (0x16)` — keyboard input
 
 The kernel implements:
 
